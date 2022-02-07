@@ -17,8 +17,9 @@ First declare some variables :
 
 ## only for owner ##
 
-Deploy :
+### **NOT TESTED** Deploy : ###
 
+    /* TODO * /
     erdpy --verbose contract deploy --project=${PROJECT} --recall-nonce --pem=${ALICE} \
           --gas-limit=100000000 \
           --send --outfile="deploy-devnet.interaction.json" --proxy=${PROXY} --chain=${CHAIN_ID} || return
@@ -32,8 +33,8 @@ Get address of the deployed smart-contract :
     erdpy data store --key=address-devnet --value=${ADDRESS}
     erdpy data store --key=deployTransaction-devnet --value=${TRANSACTION}
 
-Issue the NFT *(issueToken)*:  
-But first transform token name and token ticker in hexa
+### **NOT TESTED** Issue main collection *(issueToken)*: ###
+But first transform token name and token ticker in hexa.
 
     TOKEN_DISPLAY_NAME=0x$(echo -n nft_name | xxd -p)
     TOKEN_TICKER=0x$( echo -n nft_ticker | xxd -p)
@@ -44,63 +45,101 @@ But first transform token name and token ticker in hexa
           --send --proxy=${PROXY} --chain=${CHAIN_ID}
 
 
-Set local roles *(setLocalRoles)*:
+### Set local roles *(setLocalRoles)* : ###
 
     erdpy --verbose contract call ${ADDRESS} --recall-nonce --pem=${ALICE} \
           --gas-limit=100000000 --function="setLocalRoles" \
           --send --proxy=${PROXY} --chain=${CHAIN_ID}
 
 
-Start minting *(startMinting)*:
+### Start minting *(startMinting)* : ###
 
     erdpy --verbose contract call ${ADDRESS} --recall-nonce --pem=${ALICE} \
           --gas-limit=100000000 --function="startMinting" \
           --send --proxy=${PROXY} --chain=${CHAIN_ID}
 
-Pause minting *(pauseMinting)*:
+### Pause minting *(pauseMinting)* : ###
 
     erdpy --verbose contract call ${ADDRESS} --recall-nonce --pem=${ALICE} \
           --gas-limit=100000000 --function="pauseMinting" \
           --send --proxy=${PROXY} --chain=${CHAIN_ID}
 
-Set drop *(setDrop)*:
+### **NOT TESTED** Set drop *(setDrop)* : ###
 
     amount_of_tokens_per_drop=
+    /* TODO * /
 
-Unset drop *(unsetDrop)*:
+### **NOT TESTED** Unset drop *(unsetDrop)* : ###
 
     erdpy --verbose contract call ${ADDRESS} --recall-nonce --pem=${ALICE} \
           --gas-limit=100000000 --function="unsetDrop" \
           --send --proxy=${PROXY} --chain=${CHAIN_ID}
 
-Set new price *(setNewPrice)*
+### Set new price *(setNewPrice)* :  ###
+Exemple price for 0.7 egld. If use an integer price then remove '::-2' in arguments.
+  
+    NEW_PRICE=$(echo "0.7*1000000000000000000" | bc)
 
-Change base CIDs *(changeBaseCids)*
+    erdpy --verbose contract call ${ADDRESS} --recall-nonce --pem=${ALICE} \
+          --gas-limit=100000000 --function="setNewPrice" \
+          --arguments ${NEW_PRICE::-2} --send --proxy=${PROXY} --chain=${CHAIN_ID}
 
-Set new tokens limit per address *(setNewTokensLimitPerAddress)*
 
-Giveaway *(giveaway)*
+### **NOT TESTED** Change base CIDs *(changeBaseCids)* : ###
 
-Claim smart-contract funds *(claimScFunds)*
+    IMAGE_BASE_CID=0x$( echo -n url_image_base_cid | xxd -p)  
+    METADATA_BASE_CID=0x$( echo -n url_metadata_base_cid | xxd -p)  
 
-Populate indexes *(populateIndexes)*
+    erdpy --verbose contract call ${ADDRESS} --recall-nonce --pem=${ALICE} \
+          --gas-limit=100000000 --function="changeBaseCids" \
+          --arguments ${IMAGE_BASE_CID} ${METADATA_BASE_CID} --send --proxy=${PROXY} --chain=${CHAIN_ID}
+
+### **NOT TESTED** Set new tokens limit per address *(setNewTokensLimitPerAddress)* : ###
+Exemple for limit of 5.   
+
+    LIMIT=05  
+
+    erdpy --verbose contract call ${ADDRESS} --recall-nonce --pem=${ALICE} \
+          --gas-limit=100000000 --function="changeBaseCids" \
+          --arguments ${LIMIT} --send --proxy=${PROXY} --chain=${CHAIN_ID}
+
+### **NOT TESTED** Giveaway *(giveaway)* : ###
+
+ /* TODO * /
+
+### **NOT TESTED** Claim smart-contract funds *(claimScFunds)* : ###
+
+    erdpy --verbose contract call ${ADDRESS} --recall-nonce --pem=${ALICE} \
+          --gas-limit=100000000 --function="claimScFunds" \
+          --send --proxy=${PROXY} --chain=${CHAIN_ID}
+
+### Populate indexes *(populateIndexes)* : ###
+
+    AMOUNT=100
+
+    erdpy --verbose contract call ${ADDRESS} --recall-nonce --pem=${ALICE} \
+          --gas-limit=100000000 --function="populateIndexes" \
+          --arguments ${AMOUNT} --send --proxy=${PROXY} --chain=${CHAIN_ID}
 
 ## for all ##
 
-Mint *(mint)*
-    local TOKEN_NAME=0x4e616d65652D3037 # "Name"
-    local ROYALTIES=1000 # 10%
-    local URI=0x72616e647572692e636f6d # randuri.com
-    local SELLING_PRICE=1000000000000000000
+### Mint *(mint)* : ###
+Exemple for a price of 0.6 egld, and minting 2 NFT.   
+If use an integer price then remove '::-2' in arguments.  
+
+    UNIT_PRICE=0.6
+    QTY=02
+    TOTAL_PRICE=$(echo "$QTY*$UNIT_PRICE*1000000000000000000" | bc)
 
     erdpy --verbose contract call ${ADDRESS} --recall-nonce --pem=${ALICE} \
-          --gas-limit=50000000 --function="createNft" \
-          --arguments ${TOKEN_NAME} ${ROYALTIES} ${URI} ${SELLING_PRICE}  \
-          --send --proxy=${PROXY} --chain=${CHAIN_ID}
+          --gas-limit=50000000 --value=${TOTAL_PRICE::-2} --function="mint" \
+          --arguments ${QTY} --send --proxy=${PROXY} --chain=${CHAIN_ID}
 
 
-Shuffle *(shuffle)*:
+### Shuffle *(shuffle)* : ###
 
     erdpy --verbose contract call ${ADDRESS} --recall-nonce --pem=${ALICE} \
           --gas-limit=100000000 --function="shuffle" \
           --send --proxy=${PROXY} --chain=${CHAIN_ID}
+
+
