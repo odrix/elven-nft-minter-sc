@@ -19,10 +19,10 @@ First declare some variables :
 
 ### **NOT TESTED** Deploy : ###
 
-    /* TODO * /
-    erdpy --verbose contract deploy --project=${PROJECT} --recall-nonce --pem=${ALICE} \
+    <!-- TODO  : no good -->
+    <!-- erdpy --verbose contract deploy --project=${PROJECT} --recall-nonce --pem=${ALICE} \
           --gas-limit=100000000 \
-          --send --outfile="deploy-devnet.interaction.json" --proxy=${PROXY} --chain=${CHAIN_ID} || return
+          --send --outfile="deploy-devnet.interaction.json" --proxy=${PROXY} --chain=${CHAIN_ID} || return -->
 
     TRANSACTION=$(erdpy data parse --file="deploy-devnet.interaction.json" --expression="data['emitted_tx']['hash']")
 
@@ -66,8 +66,8 @@ But first transform token name and token ticker in hexa.
 
 ### **NOT TESTED** Set drop *(setDrop)* : ###
 
+    <!-- TODO  -->
     amount_of_tokens_per_drop=
-    /* TODO * /
 
 ### **NOT TESTED** Unset drop *(unsetDrop)* : ###
 
@@ -105,7 +105,7 @@ Exemple for limit of 5.
 
 ### **NOT TESTED** Giveaway *(giveaway)* : ###
 
- /* TODO * /
+  <!-- TODO  -->
 
 ### **NOT TESTED** Claim smart-contract funds *(claimScFunds)* : ###
 
