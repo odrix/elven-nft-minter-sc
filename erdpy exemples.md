@@ -64,12 +64,16 @@ But first transform token name and token ticker in hexa.
           --gas-limit=100000000 --function="pauseMinting" \
           --send --proxy=${PROXY} --chain=${CHAIN_ID}
 
-### **NOT TESTED** Set drop *(setDrop)* : ###
+### Set drop *(setDrop)* : ###  
+Exemple for 12 tokens per drop.
 
-    <!-- TODO  -->
-    amount_of_tokens_per_drop=
+    AMOUNT_OF_TOKENS_PER_DROP=12
 
-### **NOT TESTED** Unset drop *(unsetDrop)* : ###
+    erdpy --verbose contract call ${ADDRESS} --recall-nonce --pem=${ALICE} \
+          --gas-limit=100000000 --function="setDrop" \
+          --arguments ${AMOUNT_OF_TOKENS_PER_DROP} --send --proxy=${PROXY} --chain=${CHAIN_ID}
+
+### Unset drop *(unsetDrop)* : ###
 
     erdpy --verbose contract call ${ADDRESS} --recall-nonce --pem=${ALICE} \
           --gas-limit=100000000 --function="unsetDrop" \
