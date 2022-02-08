@@ -89,10 +89,10 @@ Exemple price for 0.7 egld. If use an integer price then remove '::-2' in argume
           --arguments ${NEW_PRICE::-2} --send --proxy=${PROXY} --chain=${CHAIN_ID}
 
 
-### **NOT TESTED** Change base CIDs *(changeBaseCids)* : ###
+### Change base CIDs *(changeBaseCids)* : ###
 
-    IMAGE_BASE_CID=0x$( echo -n url_image_base_cid | xxd -p)  
-    METADATA_BASE_CID=0x$( echo -n url_metadata_base_cid | xxd -p)  
+    IMAGE_BASE_CID=0x$( echo -n url_image_base_cid | xxd -p -c 600)  
+    METADATA_BASE_CID=0x$( echo -n url_metadata_base_cid | xxd -p -c 600)  
 
     erdpy --verbose contract call ${ADDRESS} --recall-nonce --pem=${ALICE} \
           --gas-limit=100000000 --function="changeBaseCids" \
@@ -107,9 +107,15 @@ Exemple for limit of 5.
           --gas-limit=100000000 --function="setNewTokensLimitPerAddress" \
           --arguments ${LIMIT} --send --proxy=${PROXY} --chain=${CHAIN_ID}
 
-### **NOT TESTED** Giveaway *(giveaway)* : ###
+### Giveaway *(giveaway)* : ###
 
-  <!-- TODO  -->
+    GIVEAWAY_ADDRESS_BECH32=erd1...
+    GIVEAWAY_ADDRESS_HEX=0x$(erdpy wallet bech32 --decode ${GIVEAWAY_ADDRESS_BECH32})
+    GIVEAWAY_AMOUNT=02
+
+    erdpy --verbose contract call ${ADDRESS} --recall-nonce --pem=${ALICE} \
+          --gas-limit=100000000 --function="giveaway" \
+          --arguments ${GIVEAWAY_ADDRESS_HEX} ${GIVEAWAY_AMOUNT} --send --proxy=${PROXY} --chain=${CHAIN_ID}
 
 ### Claim smart-contract funds *(claimScFunds)* : ###
 
