@@ -111,7 +111,7 @@ Exemple for limit of 5.
 
   <!-- TODO  -->
 
-### **NOT TESTED** Claim smart-contract funds *(claimScFunds)* : ###
+### Claim smart-contract funds *(claimScFunds)* : ###
 
     erdpy --verbose contract call ${ADDRESS} --recall-nonce --pem=${ALICE} \
           --gas-limit=100000000 --function="claimScFunds" \
