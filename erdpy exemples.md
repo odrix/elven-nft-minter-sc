@@ -98,13 +98,13 @@ Exemple price for 0.7 egld. If use an integer price then remove '::-2' in argume
           --gas-limit=100000000 --function="changeBaseCids" \
           --arguments ${IMAGE_BASE_CID} ${METADATA_BASE_CID} --send --proxy=${PROXY} --chain=${CHAIN_ID}
 
-### **NOT TESTED** Set new tokens limit per address *(setNewTokensLimitPerAddress)* : ###
+### Set new tokens limit per address *(setNewTokensLimitPerAddress)* : ###
 Exemple for limit of 5.   
 
     LIMIT=05  
 
     erdpy --verbose contract call ${ADDRESS} --recall-nonce --pem=${ALICE} \
-          --gas-limit=100000000 --function="changeBaseCids" \
+          --gas-limit=100000000 --function="setNewTokensLimitPerAddress" \
           --arguments ${LIMIT} --send --proxy=${PROXY} --chain=${CHAIN_ID}
 
 ### **NOT TESTED** Giveaway *(giveaway)* : ###
